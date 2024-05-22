@@ -1,0 +1,14 @@
+function containsNearbyDuplicate(nums, k){
+ const map = new Map();
+ const len = nums.length;
+ for(let i = 0; i<len; i++){
+     if(map.has(nums[i])){
+         const j = map.get(nums[i]);
+         if (Math.abs(j-i)<=k){
+             return true
+         }
+     }
+     map.set(nums[i], i)
+ }
+ return false;
+}
