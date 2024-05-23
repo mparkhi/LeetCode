@@ -11,7 +11,7 @@ class Solution {
     return DFS(source, destination, graph, visited);
     }
     
-    private boolean DFS(int source, int destination, Map<Integer, List<Integer>> graph,        Set<Integer> visited){
+    private boolean DFS(int source, int destination, Map<Integer, List<Integer>> graph, Set<Integer> visited){
     if(source == destination) {
         return true;
     }
