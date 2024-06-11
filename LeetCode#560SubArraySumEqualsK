@@ -1,0 +1,18 @@
+// Prefix Sum
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        int cumulativeSum = 0;
+        for(int num : nums){
+            cumulativeSum += num;
+            int remainingSum = cumulativeSum - k;
+            if(map.containsKey(remainingSum)){
+                count+= map.get(remainingSum);
+            }
+            map.put(cumulativeSum, map.getOrDefault(cumulativeSum, 0) + 1);
+        }
+        return count;
+    }
+}
