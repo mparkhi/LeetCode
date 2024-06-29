@@ -1,0 +1,37 @@
+// 1. 
+class Solution {
+    public int maxProduct(int[] nums) {
+        int n = nums.length;
+        double maxProduct = Integer.MIN_VALUE;
+        double prefix = 1;
+        double suffix = 1;
+        for(int i = 0 ; i < n ; i++){
+            if(prefix == 0) prefix = 1;
+            if(suffix == 0) suffix = 1;
+            prefix = prefix * nums[i];
+            suffix = suffix * nums[n - 1 - i];
+            maxProduct = Math.max(maxProduct, Math.max(prefix, suffix)); 
+        }
+        return (int) maxProduct;
+    }
+}
+
+// 2. 
+class Solution {
+    public int maxProduct(int[] nums) {
+        int n = nums.length;
+        long prefix = 1;
+        long suffix = 1;
+        long maxProduct = Integer.MIN_VALUE;
+        for(int i = 0; i < n; i++){
+            if(prefix == 0) prefix = 1;
+            if(suffix == 0) suffix = 1;
+            prefix = prefix * nums[i];
+            suffix = suffix * nums[n - 1 - i];
+
+            if(prefix < Integer.MAX_VALUE && suffix < Integer.MAX_VALUE)
+                maxProduct = Math.max(maxProduct, Math.max(prefix, suffix));    
+        }
+        return (int) maxProduct;
+    }
+}
