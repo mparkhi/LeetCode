@@ -1,3 +1,4 @@
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -8,6 +9,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+// Approach 1 - Hare and Tortoise algorithm
 class Solution {
     public ListNode middleNode(ListNode head) {
         ListNode slow = head;
@@ -17,5 +19,25 @@ class Solution {
              fast = fast.next.next;
         }
         return slow;
+    }
+}
+// Approach 2 - Iterative Approach
+class Solution {
+    public static int size (ListNode head){
+        int count = 0;
+        while(head != null){
+            head = head.next;
+            count++;
+        }
+        return count;
+    }
+    public ListNode middleNode(ListNode head) {
+        ListNode temp = head;
+        int size = size(head);
+
+        for(int i = 0; i < size/2 ; i++){
+            temp = temp.next;
+        }
+        return temp;
     }
 }
