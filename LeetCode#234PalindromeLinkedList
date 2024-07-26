@@ -25,3 +25,20 @@ class Solution {
          return start >= end;            
     }       
 }
+// Using Stack - First push all data in stack, and then traverse linked list and keep popping element from stack one by one, so stack will give you element from last.
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        // List<Integer> list = new ArrayList<>();
+        Stack<Integer> stack = new Stack<>();
+        ListNode current = head;
+        while(head != null){
+            stack.push(head.val);
+            head = head.next;
+        }
+        while(!stack.isEmpty() && stack.pop() == current.val){
+            current = current.next;
+        }
+        return current == null;
+
+    }
+}
