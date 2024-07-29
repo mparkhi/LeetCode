@@ -1,0 +1,48 @@
+// Approach 1 : Use hashmap to store the number and its count, iterate through the entry set and check if the value of that entry is greater than or equal to 2, return the key of that value
+class Solution {
+    public int findDuplicate(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int num: nums){
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()){
+            int value = entry.getValue();
+            if(value >= 2) return entry.getKey();
+        }
+        return -1;
+    }
+}
+
+// Approach 2 : Hare and tortoise
+class Solution {
+    public int findDuplicate(int[] nums) {
+     int slow = nums[0];
+     int fast = nums[0];
+     do{
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+
+     }
+     while(slow != fast); 
+
+     slow = nums[0];
+     while(slow != fast){
+        slow = nums[slow];
+        fast = nums[fast];
+     }  
+     return slow;
+    }
+}
+// Approach 3 : HashSet
+class Solution {
+    public int findDuplicate(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int num : nums){
+            if(!set.add(num)){
+                return num;
+            }
+        }
+        return -1;
+    }
+}
+
