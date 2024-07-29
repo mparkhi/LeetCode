@@ -1,0 +1,55 @@
+class Solution {
+    // helper function
+    private boolean canEatInTime(int [] piles, int h, int speed){
+        int hours = 0;
+        for(int pile : piles){
+            hours = hours + (int) Math.ceil((double) pile / speed);
+        }
+        return hours <= h;
+    }
+    public int minEatingSpeed(int[] piles, int h) {
+        // minSpeed will be 1 
+        int minSpeed = 1;
+        // maxSpeed will be the largest element in the pile
+        int maxSpeed = 0;
+        for(int pile : piles){
+            maxSpeed = Math.max(maxSpeed, pile);
+        }
+
+        while(minSpeed < maxSpeed){
+            int mid = (minSpeed + maxSpeed) / 2;
+            if(canEatInTime(piles, h, mid)) maxSpeed = mid;
+            else minSpeed = mid + 1;
+        }
+        return minSpeed;
+    }
+ }
+
+
+/**
+
+piles -> [3, 6 , 7, 11] 
+Koko wants too eat all bananas in 'h' hours
+Koko can set a speed to eat 'k' bananas per hour
+Koko cannot change a pile during any hour
+
+Brute Force 
+if speed is 1 banana per hour, time taken(# of bananas / speed) to finish all the bananas ->
+3/1 + 6/1 + 7/1 + 11/1 = 27 hours
+
+if speed is 2 bananas per hour, time taken(# of bananas / speed) to finish all the bananas ->
+3/2 + 6/2 + 7/2 + 11/2 =  2 + 3 + 4 + 6 (taking ceiling value of the division) = 15 hours
+
+if speed is 3 bananas per hour, time taken(# of bananas / speed) to finish all the bananas ->
+3/3 + 6/3 + 7/3 + 11/3 = 1 + 2 + 3 + 4 (taking ceiling value of the division) = 10 hours
+
+if speed is 4 bananas per hour, time taken(# of bananas / speed) to finish all the bananas ->
+3/4 + 6/4 + 7/4 + 11/4 = 1 + 2 + 2 + 3 (taking ceiling value of the division) = 8 hours
+
+we will keep on incrementing the speed until we find a time which is within given h, but we want her speed to be minimum as we dont want to eat too much bananas
+
+minimum speed with which she can eat is 1, and max speed is the largest element which is found in the pile, the optimum speed is between 1 and the largest element found in the pile. 
+
+Binary search - O(log n)
+
+ */
