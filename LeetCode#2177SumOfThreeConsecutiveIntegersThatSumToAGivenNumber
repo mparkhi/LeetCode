@@ -1,0 +1,20 @@
+class Solution {
+    public long[] sumOfThree(long num) {
+        if(num % 3 != 0) return new long []{};
+
+        long a = num/3;
+
+        return new long [] {a - 1, a, a + 1};
+    }
+}
+
+class Solution {
+    public long[] sumOfThree(long num) {
+        long [] result = new long [3];
+        if(num % 3 != 0) return new long[0];
+        result[1] = num/3;
+        result[0] = result[1] - 1;
+        result[2] = result[1] + 1;
+        return result;
+    }
+}
