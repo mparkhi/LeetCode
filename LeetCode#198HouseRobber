@@ -1,17 +1,40 @@
 class Solution {
     public int rob(int[] nums) {
-// Total Loot if robbed (n - 2) (if robbing the last house)= total_loot[n - 2] + total_loot[n]
-// Total Loot if robbed (n - 1)(if not robbing the last house) = total_loot[n - 1]
-// Total loot at house n = Max (total_loot[n - 2] + total_loot[n], total_loot[n - 1] )
-// [2, 7, 3, 1, 4, 2, 1, 8]
-// Memoization : [2, 7, 7, 8, 11, 11, 19]
+        // Edge case : if there is only one element in the array, just return it
         if(nums.length < 2) return nums[0];
-        int[] dp = new int [nums.length];
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0], nums[1]);
+        int [] max_loot = new int[nums.length];
+        max_loot[0] = nums[0];
+        max_loot[1] = Math.max(nums[0], nums[1]);
         for(int i = 2; i < nums.length; i++){
-            dp[i] = Math.max(dp[i - 2] + nums [i], dp[i - 1]);
-        } 
-        return dp[nums.length - 1];   
+            max_loot[i] = Math.max(max_loot[i - 2] + nums[i], max_loot[i - 1]);
+        }
+        return max_loot[nums.length - 1];
     }
 }
+/**
+lets only look at the last 4 houses, either you can loot the last house of you can loot the second last house, since you are not allowed to loot adjacent houses,
+let us take the case where we loot the last house, the loot will be equal to :
+loot till [n - 2] + loot[n]
+
+now let us take the case where we loot the second last house, the loot will be equal to :
+loot till [n - 1]
+
+hence we can derive the formula :
+
+max_loot = Max(loot[n - 2] + loot[n], loot[n - 1]);
+
+nums = [2, 7, 3, 1, 4, 2, 1, 8]
+max_loot[0] = 2
+max_loot[1] = 7
+max_loot[2] = Max (loot[0] + num[2], loot[1]) = 7
+max_loot[3] = Max (loot[1] + num[3], loot[2]) = 8
+max_loot[4] = Max (loot[2] + num[4], loot[3]) = 11
+max_loot[5] = Max (loot[3] + num[5], loot[4]) = 11
+max_loot[6] = Max (loot[4] + num[6], loot[5]) = 12
+max_loot[7] = Max (loot[5] + num[7], loot[6]) = 19
+
+
+max_loot = [2, 7, 7, 8, 11, 11, 12, 19]
+max_loot [n - 1] is out maximum loot
+
+*/
