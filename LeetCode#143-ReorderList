@@ -1,0 +1,74 @@
+// Itrative Approach -> Find middle of the list, reverse the last half of the list and merge the two lists
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        ListNode middle = middle(head);
+        ListNode reverse = reverse(middle.next);
+        middle.next = null;
+
+        ListNode curr = head;
+        merge(curr, reverse);
+    }
+
+    public ListNode middle(ListNode head){      
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public ListNode reverse(ListNode head){
+        ListNode current = head;
+        ListNode prev = null;
+        while(current != null){
+            ListNode temp = current.next;
+            current.next = prev;
+            prev = current;
+            current = temp;
+        }
+        return prev;
+    }
+    public void merge(ListNode current, ListNode reverse){
+        while(current != null && reverse != null){
+            ListNode curr_next = current.next;
+            current.next = reverse;
+
+            ListNode rev_next = reverse.next;
+            reverse.next = curr_next;
+
+            current = curr_next;
+            reverse = rev_next;
+        }
+    }
+}
+
+ // Recursive Approach
+class Solution {
+    public void reorderList(ListNode head) {
+        // Base condition
+        if(head == null || head.next == null || head.next.next == null ) return ;
+        // Recurrence Relation
+        // l1, l2, l3, -----, ln-2, ln-1, ln
+        // Taking out the second last node of linkedlist and connecting l1 to n
+        ListNode secondLast = head;
+        while(secondLast.next.next != null){
+            secondLast = secondLast.next;
+        }
+        secondLast.next.next = head.next;
+        head.next = secondLast.next;
+        secondLast.next = null;
+        reorderList(head.next.next);
+    }
+}
