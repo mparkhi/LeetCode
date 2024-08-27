@@ -1,3 +1,4 @@
+// Without StringBuilder
 class Solution {
     public String longestCommonPrefix(String[] strs){
      Arrays.sort(strs);
@@ -13,4 +14,23 @@ class Solution {
      return first.substring(0, index);
 
     }   
+}
+// Using StringBuilder
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        StringBuilder sb = new StringBuilder();
+        Arrays.sort(strs);
+        System.out.println(Arrays.toString(strs));
+        int index = 0;
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+        while(index < first.length() && index < last.length()){
+            if(first.charAt(index) != last.charAt(index)){
+                break;
+            }
+            sb.append(first.charAt(index));
+            index++;        
+        }       
+        return sb.toString();       
+    }
 }
