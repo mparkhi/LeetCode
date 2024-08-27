@@ -1,3 +1,4 @@
+// Dynamic Programming
 class Solution {
     public int rob(int[] nums) {
         // Edge case : if there is only one element in the array, just return it
