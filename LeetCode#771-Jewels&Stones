@@ -1,0 +1,36 @@
+// Long Solution - Using HashMap - 
+// initialize a count variable to store the count, count will be 0 initially
+// Initialize a HashMap<Character, Integer> map
+// Iterate through String stones and add characters and their counts in map, 
+// Iterate through String jewels and if map contains key for the character in jewel, update the count
+// Return count
+class Solution {
+    public int numJewelsInStones(String jewels, String stones) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int count = 0;
+        for(char c : stones.toCharArray()){
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        } 
+
+        for(int i = 0; i < jewels.length(); i++){
+            if(map.containsKey(jewels.charAt(i))){
+                count = count + map.get(jewels.charAt(i));
+            }
+        }
+        return count;
+    }
+}
+// Short solution - 
+// initialize a count variable, count will be zero initially
+// Iterate through the character array of String stones
+// if there exists a character in String jewels which matches the character in String stones, increment the count
+// return count
+class Solution {
+    public int numJewelsInStones(String jewels, String stones) {
+        int count = 0;
+        for(char c : stones.toCharArray()){
+            if(jewels.indexOf(c) != -1) count++;
+        }
+        return count;
+    }
+}
